@@ -25,7 +25,7 @@ import { ref } from 'vue'
   const timerCount = ref(30)
   const isDisabled = ref(true)
 
-  const gameStart = () => { // start
+  const gameStart = () => { // 카드 확인
     shuffle(cardArr.value)
     cardArr.value.forEach((item) => {
       item.isOpen = true
@@ -39,11 +39,11 @@ import { ref } from 'vue'
     }, 3000)
   }
 
-  const shuffle = (array: cardType[]) => {  // 카드석기
+  const shuffle = (array: cardType[]) => {  // 카드 섞기
     array.sort(() => Math.random() - 0.5)
   }
 
-  const onFlip = (index: number) => {
+  const onFlip = (index: number) => { // 카드 열기
     cardArr.value[index].isOpen = true
     if (selectedCard.value.length < 2) {
       selectedCard.value.push(cardArr.value[index])
@@ -75,18 +75,18 @@ import { ref } from 'vue'
     gameResult()
   }
 
-  const startTimer = () => {
+  const startTimer = () => { // 타이머
     timer.value = setInterval(() => {
       if (timerCount.value !== 0){
         timerCount.value--;
-      }else {
+      }else { // 시간 초과
         clearInterval(timer.value)
         alert('제한시간이 초과되었습니다!')
       }
     }, 1000);
   }
-  const gameResult = () => {
-    if (cardArr.value.length === matched.value.length){ // 성공
+  const gameResult = () => { // 성공
+    if (cardArr.value.length === matched.value.length){
       clearInterval(timer.value)
       if (timerCount.value !== 0) {
         setTimeout(() => {

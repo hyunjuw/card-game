@@ -1,0 +1,93 @@
+@use '../helpers' as *;
+
+/* card */
+.card {
+  padding: 2rem;
+
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    &.is-disabled {
+      .card-item {
+        pointer-events: none;
+      }
+    }
+  }
+
+  &-item {
+    position: relative;
+    width: 100%;
+    height: 12rem;
+    border-radius: 0.4rem;
+    transition: 0.2s;
+
+    &.flip,
+    &.matched {
+      transform: rotateY(180deg);
+
+      .face {
+        backface-visibility: visible;
+
+        &.front {
+          z-index: 10;
+        }
+      }
+    }
+
+    &.matched {
+      pointer-events: none;
+    }
+
+    .face {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 100%;
+      color: white;
+      // pointer-events: none;
+
+      &.back {
+        background-color: $black;
+        z-index: 1;
+      }
+
+      &.front {
+        transform: rotateY(180deg);
+        $card: (
+          red,
+          orange,
+          green,
+          gray,
+          skyblue,
+          pink
+        );
+
+      @each $color in $card {
+        &.#{""+$color} {
+          background-color: $color;
+        }
+      }
+    }
+  }
+
+  // &.back {
+  //   background-color: $black;
+  // }
+
+  // &.flip {
+  //   transition: all 0.3s;
+  // }
+}
+
+}
+
+.timer {
+  padding: 1rem 2rem;
+}
